@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <main class="hero-section">
+    <div class="container">
+      
+      <div class="section-content">
+        <h2>Find Cheapest Movie Tickets.</h2>
+        <a href="#" class="btn-primary">Sign up</a>
+        <a href="{{ url_for('about') }}" class="btn-secondary">Learn more</a>
+      </div>
+      <div class="section-device">
+        <img src="static/img/device.png">
+      </div>
+        <div class="clearfix"></div>
+    </div>
+        <div id="googleMap" style="width:30%;height:300px;"></div>
+<script>
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(40.440624,-79.995888),
+  zoom:12,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPLJvdh2b4defuy1vJtshIiOR655Wnby4&callback=myMap"></script>
+
+  </main>
+{% endblock %}
