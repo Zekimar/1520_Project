@@ -2,15 +2,6 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-#
-# @app.route('/')
-# def hello_world():
-#     return 'Hello World! from function hello_world()'
-#
-
-if __name__ == '__main__':
-    app.run()
-
 
 @app.route("/")
 def index():
@@ -21,6 +12,7 @@ def index():
 def about():
     return render_template("about.html")
 
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=8080, debug=True)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+
