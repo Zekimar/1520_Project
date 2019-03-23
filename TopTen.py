@@ -10,6 +10,7 @@ except ImportError:
 
 url_us_box_office = 'https://www.imdb.com/chart/boxoffice/'
 top_ten_movies = []
+youtube_urls = []
 
 
 # this function return an array of strings contains  current top ten movies in theatre. It parse the website specified
@@ -24,7 +25,7 @@ def movies():
 
 
 def you_tube_top_ten_url():
-    youtube_urls = []
+
     for m in top_ten_movies:
         query = "youtube/" + m + "trailer"
         for j in search(query, tld="co.in", num=1, stop=1, pause=2):
@@ -32,10 +33,6 @@ def you_tube_top_ten_url():
     return youtube_urls
 
 
-if __name__ == '__main__':
-    for x in movies():
-        print(x)
-
-    for x in you_tube_top_ten_url():
-        print(x)
+def output(fn):
+        return(fn())
 
