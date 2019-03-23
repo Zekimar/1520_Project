@@ -3,7 +3,6 @@ from TopTen import output, movies, you_tube_top_ten_url, top_ten_movies, youtube
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -13,7 +12,7 @@ def index():
 def about():
     output(movies)
     output(you_tube_top_ten_url)
-    return render_template("about.html", out1=top_ten_movies,out2=youtube_urls)
+    return render_template("about.html", out1=top_ten_movies, out2=youtube_urls)
 
 
 if __name__ == '__main__':
