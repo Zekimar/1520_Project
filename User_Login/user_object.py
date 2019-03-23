@@ -1,4 +1,4 @@
-class user_object(object):
+class User_Object(object):
   def __init__(self, username, password):
     self.username = username
     self.password = password
@@ -6,5 +6,5 @@ class user_object(object):
   def to_dict(self):
     return {
       'username': self.username,
-      'password': self.quantity,
+      'password': self.password
     }

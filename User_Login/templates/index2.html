@@ -2,11 +2,12 @@
 <html>
   <head>
     <link rel="stylesheet" href="static/style.css">
-    <script src='/static/xmlhttp.js'></script>
-    <script src='/static/buttons.js'></script>
+    <script src='/static/xmlhttp24.js'></script>
+    <script src='/static/buttons24.js'></script>
   </head>
   <body>
-    <h1>Datastore Practice 1</h1>
+    <div id="login_information" display="none"></div>
+    <h1>Datastore Practice </h1>
     <div id="message_display"></div>
     <div>
       <div>Username:</div>
@@ -20,7 +21,11 @@
       <button onclick="login();">Login</button>
       <br>
       <button onclick="display_users();">Display Users</button>
+      <a href="/templates/otherpage4.html">Other Page</a>
+      <br>
+      <button onclick="logout();">Log Out</button>
     </div>
     <div id="display_users_space"></div>
+    <script src='/static/login_info3.js'></script>
   </body>
 </html>

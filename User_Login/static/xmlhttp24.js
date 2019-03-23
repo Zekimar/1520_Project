@@ -26,11 +26,12 @@ function post_no_parameters(xmlHttp, targetUrl)
 {
   if (xmlHttp) 
   {
+    var parameters = "default=default";
     console.log("Creating POST request to " + targetUrl);
     xmlHttp.open("POST", targetUrl, true); // XMLHttpRequest.open(method, url, async)
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     console.log("Sending parameters: ");
-    xmlHttp.send();
+    xmlHttp.send(parameters);
    }
 }
 
@@ -64,6 +65,40 @@ function post_add_user(params,callback)
   }
 
   postParameters(xmlHttp,'/post_add_user',params);
+
+}
+
+function post_login(params,callback)
+{
+  console.log("post_login()");
+  let xmlHttp = createXmlHttp();
+  xmlHttp.onreadystatechange = function() 
+  {
+    if (xmlHttp.readyState == 4) 
+    {
+      //assuming here that cookies are automatically set
+        let myObject = JSON.parse(xmlHttp.responseText);
+        var outcome = myObject.outcome
+        callback(outcome);
+    }
+  }
+
+  postParameters(xmlHttp,'/post_login',params);
+
+}
+
+function post_logout(callback)
+{
+  let xmlHttp = createXmlHttp();
+  xmlHttp.onreadystatechange = function() 
+  {
+    if (xmlHttp.readyState == 4) 
+    {
+        callback(JSON.parse(xmlHttp.responseText));
+    }
+  }
+
+  post_no_parameters(xmlHttp,'/post_logout');
 
 }
 
