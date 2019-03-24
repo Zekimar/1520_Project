@@ -3,12 +3,25 @@
 {% block content %}
 <main class="hero-section">
     <div class="container">
-
+        <div id="login_information" display="none">LOGIN INFORMATION</div>
+        <button id='logout_button' onclick='logout()'>Log out</button>
         <div class="section-content">
             <h2>Find Cheapest Movie Tickets.</h2>
-            <a href="#" class="btn-primary">Sign up</a>
-            <a href="{{ url_for('about') }}" class="btn-secondary">Learn more</a>
+            <div id="message_display"></div>
+            <div>Username</div>
+            <input type="text" id="username_entry">
+            <br>
+            <div>Password</div>
+            <input type="text" id="password_entry">
+            <br>
+            <br>
+            <button onclick="add_user();" class='btn-primary'>Sign up</button>
+            <button onclick="login();" class="btn-secondary">Login</button>
+            <br>
+            <br>
+            <a href="/templates/slideshowPage.html" class="btn-primary">Slide Show</a>
         </div>
+        <script src='/static/js/login_display2.js'></script>
         <div class="section-device">
             <div id="googleMap" style="width:600px;height:400px;"></div>
         </div>

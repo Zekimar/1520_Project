@@ -3,8 +3,10 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
-<script src="/static/xmlhttp6.js"></script>
-<script src="/static/aux.js"></script>
+<script src="/static/js/xmlhttp6.js"></script>
+<script src="/static/js/aux.js"></script>
+<script src='/static/js/login_xmlhttp.js'></script>
+<script src='/static/js/login_buttons2.js'></script>
 <style>
 * {box-sizing: border-box;}
 body {font-family: Verdana, sans-serif;}
@@ -99,6 +101,9 @@ img {vertical-align: middle;}
 
 </head>
 <body>
+    <a href='/index.html'>Back</a>
+    <div id="login_information" display="none">LOGIN INFORMATION</div>
+    <button id='logout_button' onclick='logout()'>Log out</button>
 
 <div id="slide_area" class="slideshow-container">
 </div>
@@ -107,6 +112,7 @@ img {vertical-align: middle;}
 <div id="dot_area" style="text-align:center">
 </div>
 
-<script src="/static/dynamic_slideshow.js"></script>
+<script src="/static/js/dynamic_slideshow.js"></script>
+<script src='/static/js/login_display2.js'></script>
 </body>
 </html> 

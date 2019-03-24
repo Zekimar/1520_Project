@@ -17,6 +17,7 @@ def root():
 def other():
     return render_template('otherpage4.html')
 
+
 @app.route('/post_add_user', methods=['POST'])
 def add_user():
   # retrieve the parameters from the request
