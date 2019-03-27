@@ -1,0 +1,10 @@
+/*
+* To install all modules: pip3 install -r requirements.txt
+*/
+
+Flask
+pandas
+google
+lxml
+google-api-python-client
+google-cloud-datastore
