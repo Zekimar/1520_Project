@@ -31,6 +31,22 @@ a {
     margin: 0 auto;
 }
 
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.paddingZero {
+    padding: 0;
+}
+
+.paddingTop {
+    padding-top: 50px;
+}
+
 .pull-left {
     float: left;
 }
@@ -291,4 +307,14 @@ header {
 
 .leaflet-popup-content p {
     margin: 10px 0;
+}
+
+#googleMap {
+    height: -webkit-fill-available;
+    height: 100%;
+    height: -moz-available;
+    /* WebKit-based browsers will ignore this. */
+    height: -webkit-fill-available;
+    /* Mozilla-based browsers will ignore this. */
+    height: stretch;
 }
