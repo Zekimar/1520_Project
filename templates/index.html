@@ -3,8 +3,17 @@
 {% block content %}
 <main class="hero-section">
     <div class="container">
+
+        <!-- Prateek's work part A-->
         <div id="login_information" display="none">LOGIN INFORMATION</div>
         <button id='logout_button' onclick='logout()'>Log out</button>
+        <!-- Prateek's work part A-->
+        
+
+
+
+
+         <!-- Prateek's work part B-->
         <div class="section-content">
             <div id="message_display"></div>
             <div>Username</div>
@@ -16,7 +25,9 @@
             <br>
             <button onclick="add_user();" class='btn-primary'>Sign up</button>
             <button onclick="login();" class="btn-secondary">Login</button>
+            <!-- Prateek's work part B-->
             <br>
+            <!-- Mustafa's styling work -->
             <div id="highest_rated_theatre_location"></div>
             <div id="lowest_price_theatre_location"></div>
             <br>
@@ -24,6 +35,7 @@
             <br>
             <div id="theatre_entry_error" display=none></div>
             <input type="text" id="movie_theatre_entry">
+            <div id="selected_theater"></div>
             <button id="theatre_lookup_button" onclick="lookup_theatre()">Look Up</button>
             <br>
             <div id="theatre_info" display="none">
@@ -48,6 +60,8 @@
             <br>
             <br>
         </div>
+       <!-- Mustafa's styling work -->
+
   <script src='static/js/best_theatres.js'></script>
   <script src='/static/js/display.js'></script>
         <div class="section-device">
