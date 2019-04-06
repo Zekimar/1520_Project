@@ -10,6 +10,8 @@ import pandas as pd
 from user_object import User_Object
 import users
 
+import hashlib
+
 
 
 app = Flask(__name__)
@@ -35,8 +37,9 @@ def add_user():
   # retrieve the parameters from the request
   new_username = request.form['my_username']
   new_password = request.form['my_password']
+  hashed_password = hashlib.sha256(new_password).hexdigest()
   json_result = {}
-  json_result['outcome'] = users.create_user(new_username,new_password)
+  json_result['outcome'] = users.create_user(new_username,hashed_password)
   return Response(json.dumps(json_result), mimetype='application/json')
 
 @app.route('/get_users', methods=['POST'])
@@ -70,7 +73,8 @@ def login():
 
   entered_username = request.form['my_username']
   entered_password = request.form['my_password']
-  is_valid_login = users.lookup_user(entered_username, entered_password)
+  hashed_password = hashlib.sha256(entered_password).hexdigest()
+  is_valid_login = users.lookup_user(entered_username, hashed_password)
   if is_valid_login == 1:
     print("valid login credentials")
     json_result['outcome'] = 1
