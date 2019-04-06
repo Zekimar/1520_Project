@@ -167,6 +167,21 @@ def lowest_price():
 
 
 
+@app.route('/post_load_theatres', methods=['POST'])
+def load_theatres():
+  theatre_list = parse_theatre_string(request.form['theatres'])
+  best_theatres = users.load_theatres(theatre_list)
+  output = {}
+  print("app.load_theatres, best_theatres")
+  print(best_theatres)
+  output['highest_rating'] = best_theatres[0]
+  output['lowest_price'] = best_theatres[1]
+  return Response(json.dumps(output), mimetype='application/json')
+
+def parse_theatre_string(theatre_string):
+  output = theatre_string.split(',')
+  print(output)
+  return output
 
 
 

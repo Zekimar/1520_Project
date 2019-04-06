@@ -189,6 +189,25 @@ function post_lowest_price(callback)
 
 }
 
+function post_load_theatres(params,callback)
+{
+  console.log("xmlhttps: post_load_theatres")
+  let xmlHttp = createXmlHttp();
+  xmlHttp.onreadystatechange = function() 
+  {
+    if (xmlHttp.readyState == 4) 
+    {
+        let resp = JSON.parse(xmlHttp.responseText);
+        callback(resp);
+    }
+  }
+
+  postParameters(xmlHttp,'/post_load_theatres',params);
+
+}
+
+
+
 
 
 
