@@ -292,7 +292,7 @@ def get_highest_rated_theatre():
         highest_rating = cur_rating
     if(highest_rating > 0):
       output['theatre_name'] = best_theatre['theatre_name']
-      print("HERE! "+highest_rating)
+      print("HERE! "+str(highest_rating)
       output['rating'] = "{0:.2f}".format(highest_rating)
   return output
 
