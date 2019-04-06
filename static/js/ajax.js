@@ -125,7 +125,7 @@ function post_mt_lookup(params,callback)
 
 function post_update_price(params,callback)
 {
-  console.log("post_mt_lookup()");
+  console.log("post_update_price)");
   let xmlHttp = createXmlHttp();
   xmlHttp.onreadystatechange = function() 
   {
@@ -137,6 +137,55 @@ function post_update_price(params,callback)
   }
 
   postParameters(xmlHttp,'/update_price',params);
+
+}
+
+
+
+function post_update_rating(params,callback)
+{
+  console.log("xmlhttps: post_update_rating")
+  let xmlHttp = createXmlHttp();
+  xmlHttp.onreadystatechange = function() 
+  {
+    if (xmlHttp.readyState == 4) 
+    {
+        let resp = JSON.parse(xmlHttp.responseText);
+        callback(resp);
+    }
+  }
+
+  postParameters(xmlHttp,'/update_rating',params);
+
+}
+
+function post_highest_rated(callback)
+{
+  let xmlHttp = createXmlHttp();
+  xmlHttp.onreadystatechange = function() 
+  {
+    if (xmlHttp.readyState == 4) 
+    {
+        callback(JSON.parse(xmlHttp.responseText));
+    }
+  }
+
+  post_no_parameters(xmlHttp,'/post_highest_rated');
+
+}
+
+function post_lowest_price(callback)
+{
+  let xmlHttp = createXmlHttp();
+  xmlHttp.onreadystatechange = function() 
+  {
+    if (xmlHttp.readyState == 4) 
+    {
+        callback(JSON.parse(xmlHttp.responseText));
+    }
+  }
+
+  post_no_parameters(xmlHttp,'/post_lowest_price');
 
 }
 

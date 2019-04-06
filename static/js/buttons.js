@@ -121,6 +121,81 @@ function logout_helper(response)
 
 
 
+function lookup_theatre()
+{
+	console.log("LOOK_UP_THEATRE 2");
+	var theatre_name = document.getElementById("movie_theatre_entry").value;
+	document.getElementById('theatre_name_location').innerHTML=theatre_name;
+	var params = 'theatre='+theatre_name;
+	post_mt_lookup(params,lookup_theatre_callback);
+}
+
+function lookup_theatre_callback(response)
+{
+	document.getElementById("theatre_info").style.display='block';
+	document.getElementById("average_price_location").innerHTML='Average Ticket Price: '+response.avg_price;
+	document.getElementById("average_rating_location").innerHTML='Rating: '+response.avg_rating;
+	if(response.outcome == 1)
+	{
+		document.getElementById("user_price_location").innerHTML='User submitted ticket price: '+response.user_price;
+		document.getElementById("user_rating_location").innerHTML='User rating: '+response.user_rating;
+	}
+	else if(response == 0)
+	{
+		document.getElementById("user_price_location").innerHTML='not logged in';
+		document.getElementById("user_rating_location").innerHTML='not logged in';
+	}
+
+}
+
+
+function update_price()
+{
+	var user_price = document.getElementById('update_price_entry').value;
+	var theatre = document.getElementById('theatre_name_location').innerHTML;
+	var params = 'theatre='+theatre+'&user_price='+user_price;
+	post_update_price(params,update_price_helper);
+}
+
+function update_rating()
+{
+	var user_rating = document.getElementById('update_rating_entry').value;
+	var theatre = document.getElementById('theatre_name_location').innerHTML;
+	var params = 'theatre='+theatre+'&user_rating='+user_rating;
+	post_update_rating(params,update_rating_helper);
+}
+
+
+function update_rating_helper(resp)
+{
+	//does nothing
+}
+
+
+function update_price_helper(resp)
+{
+	//doesn't need to do anything right now
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

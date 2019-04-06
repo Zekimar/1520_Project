@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <script src='/static/js/login_buttons6.js'></script>
-    <script src='/static/js/login_xmlhttp6.js'></script>
+    <script src='/static/js/buttons.js'></script>
+    <script src='/static/js/ajax.js'></script>
   	<style>
     .wrapper 
     {
@@ -15,15 +15,13 @@
   </style>
   </head>
   <body>
-  	<a href="/index.html">Back</a>
-    <div id="login_information" display="none">LOGIN INFORMATION</div>
-    <button id='logout_button' onclick='logout()'>Log out</button>
-    <br>
     <div>Movie Theatre:</div>
     <br>
     <div id="theatre_entry_error" display=none></div>
     <input type="text" id="movie_theatre_entry">
     <button id="theatre_lookup_button" onclick="lookup_theatre()">Look Up</button>
+    <div id="highest_rated_theatre_location"></div>
+    <div id="lowest_price_theatre_location"></div>
     <br>
     <div id="theatre_info" display="none">
       <div id="theatre_name_location"></div>
@@ -44,6 +42,7 @@
       <button onclick="update_rating()">update rating</button>
     </div>
     <br>
-  <script src='/static/js/login_display2.js'></script>
+  <script src='static/js/best_theatres.js'></script>
+  <script src='/static/js/display.js'></script>
   </body>
 </html>
