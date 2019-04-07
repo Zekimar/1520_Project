@@ -1,5 +1,3 @@
-get_highest_rated();
-get_lowest_price();
 
 function get_highest_rated()
 {

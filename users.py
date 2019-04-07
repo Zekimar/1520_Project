@@ -323,6 +323,74 @@ def get_lowest_price_theatre():
 
 
 
+def highest_rated_in_list(theatre_list):
+  output = {}
+  output['theatre_name'] = 'none'
+  output['rating'] = 'none'
+  if len(theatre_list) > 0:
+    best_theatre = theatre_list[0]
+    highest_rating = get_averages_raw(best_theatre['info'])['rating']
+    cur_rating = 0
+    for cur_theatre in theatre_list:
+      cur_rating = get_averages_raw(cur_theatre['info'])['rating']
+      if (cur_rating > 0) and (cur_rating > highest_rating):
+        best_theatre = cur_theatre
+        highest_rating = cur_rating
+    if(highest_rating > 0):
+      output['theatre_name'] = best_theatre['theatre_name']
+      output['rating'] = "{0:.2f}".format(highest_rating)
+  return output
+
+
+
+
+
+def lowest_price_in_list(theatre_list):
+  output = {}
+  output['theatre_name'] = 'none'
+  output['price'] = 'none'
+  if(len(theatre_list) > 0):
+    best_theatre = theatre_list[0]
+    lowest_price = get_averages_raw(best_theatre['info'])['price']
+    if(lowest_price == 0):
+      lowest_price = 1000
+    cur_price = 1000
+    for cur_theatre in theatre_list:
+      cur_price = get_averages_raw(cur_theatre['info'])['price']
+      if (cur_price > 0) and (cur_price < lowest_price):
+        best_theatre = cur_theatre
+        lowest_price = cur_price
+    if(lowest_price < 1000):
+      output['theatre_name'] = best_theatre['theatre_name']
+      output['price'] = "{0:.2f}".format(lowest_price)
+  return output
+
+
+
+#[ (highest_rated_theatre), (lowest_price_theatre)]
+def load_theatres(theatre_names_to_lookup):
+  print("users.load_theatres")
+  client = datastore.Client(PROJECT_ID)
+  query = client.query(kind=ENTITY_TYPE_THEATRE)
+  theatre_list = list(query.fetch())
+  if(len(theatre_list) == 0):
+    return [{'theatre_name':'none','rating':0},{'theatre_name':'none','price':0}]
+  target_theatres = []
+  for cur_theatre in theatre_list:
+    if cur_theatre['theatre_name'] in theatre_names_to_lookup:
+      target_theatres.append(cur_theatre)
+  print("target_theatres:")
+  print(target_theatres)
+  highest_rated_theatre = highest_rated_in_list(target_theatres)
+  lowest_price_theatre = lowest_price_in_list(target_theatres)
+  return [highest_rated_theatre,lowest_price_theatre]
+
+
+
+
+
+
+
 
 
   
