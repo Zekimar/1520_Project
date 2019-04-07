@@ -130,6 +130,14 @@ function lookup_theatre()
 	post_mt_lookup(params,lookup_theatre_callback);
 }
 
+function lookup_theatre_map(name){
+    console.log("LOOK_UP_THEATRE 2");
+    var theatre_name = name;
+    document.getElementById('theatre_name_location').innerHTML=name;
+    var params = 'theatre='+name;
+    post_mt_lookup(params,lookup_theatre_callback);
+}
+
 function lookup_theatre_callback(response)
 {
 	document.getElementById("theatre_info").style.display='block';
@@ -156,7 +164,10 @@ function update_price()
 	var params = 'theatre='+theatre+'&user_price='+user_price;
 	post_update_price(params,update_price_helper);
 }
-
+function update_price_map(user_price, theatre){
+    var params = 'theatre='+theatre+'&user_price='+user_price;
+    post_update_price(params,update_price_helper);
+}
 function update_rating()
 {
 	var user_rating = document.getElementById('update_rating_entry').value;
@@ -164,7 +175,10 @@ function update_rating()
 	var params = 'theatre='+theatre+'&user_rating='+user_rating;
 	post_update_rating(params,update_rating_helper);
 }
-
+function update_rating_map(user_rating, theatre){
+    var params = 'theatre='+theatre+'&user_rating='+user_rating;
+    post_update_price(params,update_rating_helper);
+}
 
 function update_rating_helper(resp)
 {

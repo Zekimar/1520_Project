@@ -28,8 +28,12 @@
             <!-- Prateek's work part B-->
             <br>
             <!-- Mustafa's styling work -->
+            <div id="highest_rated_title">Highest Rated Theatre:</div>
             <div id="highest_rated_theatre_location"></div>
+            <button onclick="center_on(document.getElementById('highest_rated_theatre_location').innerHTML)">Find</button>
+            <div id="lowest_price_title">Lowest Price Theatre:</div>
             <div id="lowest_price_theatre_location"></div>
+            <button onclick="center_on(document.getElementById('lowest_price_theatre_location').innerHTML)">Find</button>
             <br>
             <div>Movie Theatre:</div>
             <br>
@@ -62,8 +66,7 @@
         </div>
        <!-- Mustafa's styling work -->
 
-  <script src='static/js/best_theatres.js'></script>
-  <script src='/static/js/display.js'></script>
+  
         <div class="section-device">
             <div id="googleMap" style="width:600px;height:400px;"></div>
         </div>
@@ -77,7 +80,7 @@
         var long;
         var my_map;
         var position;
-
+        var markers = [];
         function myMap() {
             var map_cent = new google.maps.LatLng(40.440624, -79.995888);
 
@@ -117,13 +120,41 @@
         }
 
         function createMarker(place) {
+            //put markers on the map
             var marker = new google.maps.Marker({
                 map: my_map,
-                position: place.geometry.location
+                position: place.geometry.location,
+                title: place.name
             });
+            markers.push(marker);
+            //add infowindow for onClick
+            var infowindow = new google.maps.InfoWindow({
+                content:"<p>" + place.name + "<br>" + place.formatted_address + "<br>"// + '<input type="text" id="updatePrice">'
+                //+ '<button onclick="update_price_map(document.getElementById("updatePrice").value, place.name)">update price</button>' + '<br>' 
+                //+ '<input type="text">' + '<button onclick="update_rating_map()">update rating</button>'
+            });
+            //add onClick listener
+            marker.addListener('click', function() {
+                my_map.setZoom(16);
+                my_map.setCenter(marker.getPosition());
+                infowindow.open(my_map, marker);
+                lookup_theatre_map(place.name);
+                document.getElementById("selected_theater").innerHTML = place.name;
+            });
+      }
+    function center_on(name){
+        var actual_name = name.split(",");
+        for (x in markers){
+            if (markers[x].title === actual_name[0]){
+                my_map.setCenter(markers[x].getPosition());
+                my_map.setZoom(16);
+            }
         }
+    }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU5KAyTuvKuS95KySyAzeCPsBY_pj2lGw&libraries=places&callback=myMap"></script>
-
+    <script src='/static/js/buttons1.js'></script>
+    <script src='/static/js/best_theatres1.js'></script>
+    <script src='/static/js/display.js'></script>
 </main>
 {% endblock %}
