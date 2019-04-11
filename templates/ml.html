@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet'>
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+  <script src='/static/js/ajax.js'></script>
+  <script src='/static/js/buttons.js'></script>
+    <style>
+        /* start-- Mustafa Section*/
+.mustafa_button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color:#1266f1;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 0px;
+  width: 180px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.mustafa_button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.mustafa_button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.mustafa_button:hover span {
+  padding-right: 20px;
+}
+
+.mustafa_button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.mustafa_box_display {
+  display: inline-block;
+  width: 400px;
+  height: 200px;
+  margin: 1em;
+  border: #db4437;
+}
+.mustafa_box_display div {
+  padding-right: 10px;
+}
+.mustafa_clk_button {
+  display: inline-block;
+  padding: 5px 5px;
+  font-size: 20px;
+  width: 180px;
+
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 7px #999;
+}
+
+.mustafa_clk_button:hover {background-color: #3e8e41}
+
+.mustafa_clk_button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.foo
+{
+    padding-right: 20px;
+}
+
+/*end -- Mustafa Section*/
+    </style>
+
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand title" href="#">1520_Project</a>
+    </nav>
+  </header>
+
+  {% block content %}
+  {% endblock %}
+  <footer class="footer fixed-bottom bg-dark">
+    <div class="container">
+      <span class="text-muted">1520 project Spring,2019.</span>
+    </div>
+  </footer>
+</body>
+
+</html>

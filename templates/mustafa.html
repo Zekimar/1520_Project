@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<main class="hero-section">
+    <div class="container">
+
+        <!-- Prateek's work part A-->
+        <div id="login_information" display="none">LOGIN INFORMATION</div>
+        <button id='logout_button' onclick='logout()'>Log out</button>
+        <!-- Prateek's work part A-->
+
+
+
+
+
+         <!-- Prateek's work part B-->
+        <div class="section-content">
+            <div id="message_display"></div>
+            <div>Username</div>
+            <input type="text" id="username_entry">
+            <br>
+            <div>Password</div>
+            <input type="text" id="password_entry">
+            <br>
+            <br>
+            <button onclick="add_user();" class='btn-primary'>Sign up</button>
+            <button onclick="login();" class="btn-secondary">Login</button>
+            <!-- Prateek's work part B-->
+            <br>
+            <!-- Mustafa's styling work -->
+            <div id="highest_rated_theatre_location"></div>
+            <div id="lowest_price_theatre_location"></div>
+            <br>
+            <div><h3><strong>Movie Theatre: </strong></h3></div>
+            <br>
+            <div id="theatre_entry_error" display=none></div>
+            <div class="mustafa_box_display" style=" background-color: whitesmoke; width: 400px; height: 250px; border: 5px groove; padding: 5px; margin: 0px"  display="none" id="theatre_info">
+              <div id="theatre_name_location"></div>
+              <br>
+              <div id="average_price_location"></div>
+              <br>
+              <div id="average_rating_location"></div>
+              <br>
+              <div id="user_price_location"></div>
+              <br>
+              <div id="user_rating_location"></div>
+              <br><br><br>
+              <br><br><br>
+              <input type="text" id="update_price_entry">
+                <button class="mustafa_button" style="vertical-align:middle" id="theatre_lookup_button" onclick="update_price()"><span>update price</span></button>
+              <br>
+              <input type="text" id="update_rating_entry">
+                <button class="mustafa_button" style="vertical-align:middle" id="theatre_lookup_button" onclick="update_rating()"><span>update rating</span></button>
+            </div>
+            <br>
+            <br>
+            <br>
+        </div>
+       <!-- Mustafa's styling work -->
+
+  <script src='static/js/best_theatres.js'></script>
+  <script src='/static/js/display.js'></script>
+        <div class="section-device">
+            <div id="googleMap" style="width:600px;height:400px;"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <script>
+        var lat;
+        var long;
+        var my_map;
+        var position;
+
+        function myMap() {
+            var map_cent = new google.maps.LatLng(40.440624, -79.995888);
+
+            my_map = new google.maps.Map(document.getElementById("googleMap"), {
+                center: map_cent,
+                zoom: 12
+            });
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    my_map.setZoom(16);
+                    my_map.setCenter(pos);
+                });
+            }
+            var request = {
+                location: map_cent,
+                radius: "1500",
+                type: "movie_theater"
+            };
+            service = new google.maps.places.PlacesService(my_map);
+            service.textSearch(request, callback);
+        }
+
+
+        function callback(results, status) {
+            console.log(status);
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    var place = results[i];
+                    createMarker(place);
+                    console.log(place);
+                }
+            }
+        }
+
+        function createMarker(place) {
+            var marker = new google.maps.Marker({
+                map: my_map,
+                position: place.geometry.location
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU5KAyTuvKuS95KySyAzeCPsBY_pj2lGw&libraries=places&callback=myMap"></script>
+
+</main>
+{% endblock %}

@@ -138,15 +138,34 @@ function lookup_theatre_map(place){
     post_mt_lookup(params,lookup_theatre_callback);
 }
 
+
+
 function lookup_theatre_callback(response)
 {
-	document.getElementById("theatre_info").style.display='block';
-	document.getElementById("average_price_location").innerHTML='Average Ticket Price: '+response.avg_price;
-	document.getElementById("average_rating_location").innerHTML='Rating: '+response.avg_rating;
+	//document.getElementById("theatre_info").style.display='block';
+    document.getElementById('theatre_name_location').style.visibility='visible';
+    var average_price_location = document.getElementById("average_price_location");
+    average_price_location.style.visibility='visible';
+    average_price_location.innerHTML = 'Average Ticket Price: '+response.avg_price;
+	//document.getElementById("average_price_location").innerHTML='Average Ticket Price: '+response.avg_price;
+    var average_rating_location = document.getElementById("average_rating_location");
+    average_rating_location.style.visibility='visible';
+    average_rating_location.innerHTML = 'Average Rating: '+response.avg_rating;
+
+	//document.getElementById("average_rating_location").innerHTML='Rating: '+response.avg_rating;
 	if(response.outcome == 1)
 	{
-		document.getElementById("user_price_location").innerHTML='User submitted ticket price: '+response.user_price;
-		document.getElementById("user_rating_location").innerHTML='User rating: '+response.user_rating;
+        var user_price_location = document.getElementById("user_price_location");
+        user_price_location.innerHTML= 'User submitted ticket price: '+response.user_price;
+        user_price_location.style.visibility='visible';
+
+        var user_rating_location = document.getElementById("user_rating_location");
+        user_rating_location.innerHTML= 'User submitted rating: '+response.user_rating;
+        user_rating_location.style.visibility='visible';
+
+
+		//document.getElementById("user_price_location").innerHTML='User submitted ticket price: '+response.user_price;
+		//document.getElementById("user_rating_location").innerHTML='User rating: '+response.user_rating;
 	}
 	else if(response == 0)
 	{
@@ -165,7 +184,7 @@ function update_price()
 	if(place_id != "")
 	{
 		var params = 'place_id='+place_id+'&theatre_name='+theatre_name+'&user_price='+user_price;
-		post_update_price(params,update_price_helper);
+		post_update_price(params,update_price_helper,place_id);
 	}
 }
 
@@ -177,20 +196,28 @@ function update_rating()
 	if(place_id != "")
 	{
 		var params = 'place_id='+place_id+'&theatre_name='+theatre_name+'&user_rating='+user_rating;
-	    post_update_rating(params,update_rating_helper);
+	    post_update_rating(params,update_rating_helper,place_id);
 	}
 }
 
 
 function update_rating_helper(resp)
 {
-	//does nothing
+    lookup_theatre_by_id(resp);
 }
 
 
 function update_price_helper(resp)
 {
-	//doesn't need to do anything right now
+    lookup_theatre_by_id(resp);
+}
+
+
+function lookup_theatre_by_id(place_id)
+{
+    console.log("look theatre by id");
+    var params = 'place_id='+place_id+'&theatre_name=whatever';
+    post_mt_lookup(params,lookup_theatre_callback);
 }
 
 

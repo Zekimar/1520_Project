@@ -123,7 +123,7 @@ function post_mt_lookup(params,callback)
 
 
 
-function post_update_price(params,callback)
+function post_update_price(params,callback,place_id)
 {
   console.log("post_update_price)");
   let xmlHttp = createXmlHttp();
@@ -132,7 +132,7 @@ function post_update_price(params,callback)
     if (xmlHttp.readyState == 4) 
     {
         let resp = JSON.parse(xmlHttp.responseText);
-        callback(resp);
+        callback(place_id);
     }
   }
 
@@ -142,7 +142,7 @@ function post_update_price(params,callback)
 
 
 
-function post_update_rating(params,callback)
+function post_update_rating(params,callback,place_id)
 {
   console.log("xmlhttps: post_update_rating")
   let xmlHttp = createXmlHttp();
@@ -151,7 +151,7 @@ function post_update_rating(params,callback)
     if (xmlHttp.readyState == 4) 
     {
         let resp = JSON.parse(xmlHttp.responseText);
-        callback(resp);
+        callback(place_id);
     }
   }
 

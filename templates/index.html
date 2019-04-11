@@ -7,6 +7,7 @@
         <!-- Prateek's work part A-->
         <div id="login_information" display="none">LOGIN INFORMATION</div>
         <button id='logout_button' onclick='logout()'>Log out</button>
+        <div style="display:none" id="place_id_location"></div>
         <!-- Prateek's work part A-->
         
 
@@ -15,6 +16,61 @@
 
          <!-- Prateek's work part B-->
         <div class="section-content">
+            <div id="highest_rated_title">Highest Rated Theatre:</div>
+            <div id="highest_rated_theatre_location" onclick="center_on(document.getElementById('highest_rated_theatre_location').innerHTML)"></div>
+            <!--<button onclick="center_on(document.getElementById('highest_rated_theatre_location').innerHTML)">Find</button>-->
+            <br>
+            <div id="lowest_price_title">Lowest Price Theatre:</div>
+            <div id="lowest_price_theatre_location" onclick="center_on(document.getElementById('lowest_price_theatre_location').innerHTML)"></div>
+            <!--<button onclick="center_on(document.getElementById('lowest_price_theatre_location').innerHTML)">Find</button>-->
+            <br>
+            <br>
+            <div><h3><strong>Selected Theatre Information: </strong></h3></div>
+            <br>
+            <div class="mustafa_box_display" style=" background-color: whitesmoke; width: 400px; height: 250px; border: 5px groove; padding: 5px; margin: 0px"  display="none" id="theatre_info">
+              <div style="visibility:hidden" id="theatre_name_location">none</div>
+              <br>
+              <div style="visibility:hidden" id="average_price_location">none</div>
+              <br>
+              <div style="visibility:hidden" id="average_rating_location">none</div>
+              <br>
+              <div style="visibility:hidden" id="user_price_location">none</div>
+              <br>
+              <div style="visibility:hidden" id="user_rating_location">none</div>
+              <br><br><br>
+              <input type="text" id="update_price_entry">
+              <button class="mustafa_button" style="vertical-align:middle" id="theatre_lookup_button" onclick="update_price()"><span>update price</span></button>
+              <br>
+              <input type="text" id="update_rating_entry">
+              <button class="mustafa_button" style="vertical-align:middle" id="theatre_lookup_button" onclick="update_rating()"><span>update rating</span></button>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            </div>
+           
+        </div>
+            <br>
+            <br>
+            <br>
+       <!-- Mustafa's styling work -->
+
+  
+        <div class="section-device">
+            <div id="googleMap" style="width:600px;height:400px;"></div>
+        </div>
+
+
+
+
+        <div class="clearfix">
+        </div>
+
+
+            <br>
+            <br>
+            <br>
             <div id="message_display"></div>
             <div>Username</div>
             <input type="text" id="username_entry">
@@ -25,51 +81,9 @@
             <br>
             <button onclick="add_user();" class='btn-primary'>Sign up</button>
             <button onclick="login();" class="btn-secondary">Login</button>
-            <!-- Prateek's work part B-->
-            <br>
-            <!-- Mustafa's styling work -->
-            <div id="highest_rated_title">Highest Rated Theatre:</div>
-            <div id="highest_rated_theatre_location"></div>
-            <button onclick="center_on(document.getElementById('highest_rated_theatre_location').innerHTML)">Find</button>
-            <div id="lowest_price_title">Lowest Price Theatre:</div>
-            <div id="lowest_price_theatre_location"></div>
-            <button onclick="center_on(document.getElementById('lowest_price_theatre_location').innerHTML)">Find</button>
-            <br>
-            <div>Movie Theatre:</div>
-            <br>
-            <br>
-            <div id="theatre_info" display="none">
-              <div id="theatre_name_location"></div>
-              <div display="none" id="place_id_location"></div>
-              <br>
-              <div id="average_price_location"></div>
-              <br>
-              <div id="average_rating_location"></div>
-              <br>
-              <div id="user_price_location"></div>
-              <br>
-              <div id="user_rating_location"></div>
-              <br>
-              <br>
-              <input type="text" id="update_price_entry">
-              <button onclick="update_price()">update price</button>
-              <br>
-              <input type="text" id="update_rating_entry">
-              <button onclick="update_rating()">update rating</button>
-            </div>
-            <br>
-            <br>
-            <br>
-        </div>
-       <!-- Mustafa's styling work -->
 
-  
-        <div class="section-device">
-            <div id="googleMap" style="width:600px;height:400px;"></div>
-        </div>
-
-
-        <div class="clearfix"></div>
+            <br>
+            <br>
     </div>
 
     <script>
@@ -80,6 +94,7 @@
         var markers = [];
         var infowindow;
         var marker_addresses = [];
+        var my_places = [];
         function myMap() {
             var map_cent = new google.maps.LatLng(40.440624, -79.995888);
 
@@ -131,6 +146,7 @@
             });
             markers.push(marker);
             marker_addresses.push(place.formatted_address);
+            my_places.push(place);
             //add infowindow for onClick
             infowindow = new google.maps.InfoWindow({
                 content:"<p>" + place.name + "<br>" + place.formatted_address + "<br>"// + '<input type="text" id="updatePrice">'
@@ -164,13 +180,14 @@
                 content:"<p>" + markers[i].title + "<br>" + marker_addresses[i]+ "<br>"
             });
                 infowindow.open(my_map, markers[i]);
+                lookup_theatre_map(my_places[i]);
                 //my_map.setZoom(16);
             }
         }
     }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU5KAyTuvKuS95KySyAzeCPsBY_pj2lGw&libraries=places&callback=myMap"></script>
-    <script src='/static/js/load_theatres48.js'></script>
-    <script src='/static/js/display48.js'></script>
+    <script src='/static/js/load_theatres61.js'></script>
+    <script src='/static/js/display61.js'></script>
 </main>
 {% endblock %}
