@@ -136,7 +136,7 @@
             });
             //add onClick listener
             marker.addListener('click', function() {
-                my_map.setZoom(16);
+                //my_map.setZoom(100);
                 my_map.setCenter(marker.getPosition());
                 infowindow.open(my_map, marker);
                 //document.getElementById("selected_theater").innerHTML = place.name;
@@ -146,8 +146,8 @@
     function center_on(name){
         var actual_name = name.split(",");
         for (x in markers){
-            if (markers[x].title === actual_name[0]){
-                my_map.setCenter(markers[x].getPosition());
+            if (x.title === actual_name[0]){
+                my_map.setCenter(x.getPosition());
                 my_map.setZoom(16);
             }
         }
