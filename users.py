@@ -16,10 +16,10 @@ PROJECT_ID = 'potent-smithy-230123'
 
 
 
-def get_user_price_and_rating(theatre_name,username):
+def get_user_price_and_rating(place_id,username):
   client = datastore.Client(PROJECT_ID)
   query = client.query(kind=ENTITY_TYPE_THEATRE)
-  query.add_filter('theatre_name', '=', theatre_name)
+  query.add_filter('place_id', '=', place_id)
   results = list(query.fetch())
   theatre_info = results[0]['info']
   output = {}
@@ -37,13 +37,15 @@ def get_user_price_and_rating(theatre_name,username):
   return output
 
 
-def update_price(theatre,username,user_price):
+def update_price(place_id,username,user_price):
   if((float(user_price) > 100) or (float(user_price) <= 0)):
     return
   client = datastore.Client(PROJECT_ID)
   query = client.query(kind=ENTITY_TYPE_THEATRE)
-  query.add_filter('theatre_name', '=', theatre)
+  query.add_filter('place_id', '=', place_id)
   results = list(query.fetch())
+  if(len(results) == 0):
+    return
   target_theatre = results[0]
   theatre_info = results[0]['info']
   flag = 0
@@ -80,12 +82,12 @@ def update_price(theatre,username,user_price):
 
 
 
-def update_rating(theatre,username,user_rating):
+def update_rating(place_id,username,user_rating):
   if((float(user_rating) > 100) or (float(user_rating) <= 0)):
     return
   client = datastore.Client(PROJECT_ID)
   query = client.query(kind=ENTITY_TYPE_THEATRE)
-  query.add_filter('theatre_name', '=', theatre)
+  query.add_filter('place_id', '=', place_id)
   results = list(query.fetch())
   target_theatre = results[0]
   theatre_info = results[0]['info']
@@ -124,11 +126,11 @@ def update_rating(theatre,username,user_rating):
 
 
 
-def create_theatre(new_theatre_name):
+def create_theatre(new_place_id,new_theatre_name):
   print('creating theatre')
   client = datastore.Client(PROJECT_ID)
   query = client.query(kind=ENTITY_TYPE_THEATRE)
-  query.add_filter('theatre_name', '=', new_theatre_name)
+  query.add_filter('place_id', '=', new_place_id)
   results = list(query.fetch())
 
   if(len(results) == 0):
@@ -136,6 +138,7 @@ def create_theatre(new_theatre_name):
     new_user = datastore.Entity(key=complete_key)
     new_user.update({
       'theatre_name' : new_theatre_name,
+      'place_id': new_place_id,
       'info' : []
     })
     client.put(new_user)
@@ -189,17 +192,17 @@ def get_averages_raw(theatre_info):
   return {'price':output_price,'rating':output_rating}
 
 
-def get_theatre_info(theatre_name):
+def get_theatre_info(place_id,theatre_name):
   output = {}
   client = datastore.Client(PROJECT_ID)
   query = client.query(kind=ENTITY_TYPE_THEATRE)
-  query.add_filter('theatre_name', '=', theatre_name)
+  query.add_filter('place_id', '=', place_id)
   results = list(query.fetch())
 
   if(len(results) == 0):
     output['avg_price'] = 'not available'
     output['avg_rating'] = 'not available'
-    create_theatre(theatre_name)
+    create_theatre(place_id,theatre_name)
   else:
     theatre_info = results[0]['info']
     averages = get_averages(theatre_info)

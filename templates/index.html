@@ -37,13 +37,10 @@
             <br>
             <div>Movie Theatre:</div>
             <br>
-            <div id="theatre_entry_error" display=none></div>
-            <input type="text" id="movie_theatre_entry">
-            <div id="selected_theater"></div>
-            <button id="theatre_lookup_button" onclick="lookup_theatre()">Look Up</button>
             <br>
             <div id="theatre_info" display="none">
               <div id="theatre_name_location"></div>
+              <div display="none" id="place_id_location"></div>
               <br>
               <div id="average_price_location"></div>
               <br>
@@ -142,8 +139,8 @@
                 my_map.setZoom(16);
                 my_map.setCenter(marker.getPosition());
                 infowindow.open(my_map, marker);
-                lookup_theatre_map(place.name);
-                document.getElementById("selected_theater").innerHTML = place.name;
+                //document.getElementById("selected_theater").innerHTML = place.name;
+                lookup_theatre_map(place);
             });
       }
     function center_on(name){

@@ -119,7 +119,7 @@ function logout_helper(response)
     logout_button.style.display = 'none';
 }
 
-
+/*
 
 function lookup_theatre()
 {
@@ -128,13 +128,13 @@ function lookup_theatre()
 	document.getElementById('theatre_name_location').innerHTML=theatre_name;
 	var params = 'theatre='+theatre_name;
 	post_mt_lookup(params,lookup_theatre_callback);
-}
+}*/
 
-function lookup_theatre_map(name){
+function lookup_theatre_map(place){
     console.log("LOOK_UP_THEATRE 2");
-    var theatre_name = name;
-    document.getElementById('theatre_name_location').innerHTML=name;
-    var params = 'theatre='+name;
+    document.getElementById('theatre_name_location').innerHTML=place.name;
+    document.getElementById('place_id_location').innerHTML = place.place_id;
+    var params = 'place_id'+place.place_id+'&theatre_name='+place.name;
     post_mt_lookup(params,lookup_theatre_callback);
 }
 
@@ -160,25 +160,37 @@ function lookup_theatre_callback(response)
 function update_price()
 {
 	var user_price = document.getElementById('update_price_entry').value;
-	var theatre = document.getElementById('theatre_name_location').innerHTML;
-	var params = 'theatre='+theatre+'&user_price='+user_price;
-	post_update_price(params,update_price_helper);
+	var place_id = document.getElementById('place_id_location').innerHTML;
+	var theatre_name = document.getElementById('theatre_name_location').innerHTML;
+	if(place_id != "")
+	{
+		var params = 'place_id='+place_id+'&theatre_name='+theatre_name+'&user_price='+user_price;
+		post_update_price(params,update_price_helper);
+	}
 }
+/*
 function update_price_map(user_price, theatre){
     var params = 'theatre='+theatre+'&user_price='+user_price;
     post_update_price(params,update_price_helper);
 }
+*/
+
 function update_rating()
 {
 	var user_rating = document.getElementById('update_rating_entry').value;
-	var theatre = document.getElementById('theatre_name_location').innerHTML;
-	var params = 'theatre='+theatre+'&user_rating='+user_rating;
-	post_update_rating(params,update_rating_helper);
+	var place_id = document.getElementById('place_id_location').innerHTML;
+	var theatre_name = document.getElementById('theatre_name_location').innerHTML;
+	if(place_id != "")
+	{
+		var params = 'place_id='+place_id+'&theatre_name='+theatre_name+'&user_price='+user_price;
+	    post_update_rating(params,update_rating_helper);
+	}
 }
+/*
 function update_rating_map(user_rating, theatre){
     var params = 'theatre='+theatre+'&user_rating='+user_rating;
     post_update_price(params,update_rating_helper);
-}
+}*/
 
 function update_rating_helper(resp)
 {

@@ -102,14 +102,15 @@ def login():
 #--------------------------
 @app.route('/lookup_theatre', methods=['POST'])
 def lookup_theatre():
-  theatre = request.form['theatre']
-  theatre_stuff = users.get_theatre_info(theatre)
+  place_id = request.form['place_id']
+  theatre_name = request.form['theatre_name']
+  theatre_stuff = users.get_theatre_info(place_id,theatre_name)
   json_result = {}
   json_result["avg_price"] = theatre_stuff['avg_price']
   json_result['avg_rating'] = theatre_stuff['avg_rating']
   username = request.cookies.get('username')
   if username:
-    user_stuff = users.get_user_price_and_rating(theatre,username)
+    user_stuff = users.get_user_price_and_rating(place_id,username)
     json_result['user_price'] = user_stuff['user_price']
     json_result['user_rating'] = user_stuff['user_rating']
     json_result['outcome'] = 1
@@ -125,10 +126,11 @@ def update_price():
   json_result = {}
   if username:
     json_result['outcome'] = 1
-    theatre = request.form['theatre']
+    #theatre = request.form['theatre']
+    place_id = request.form['place_id']
     user_price = request.form['user_price']
     username = request.cookies.get('username')
-    users.update_price(theatre,username,user_price)
+    users.update_price(place_id,username,user_price)
   else:
       json_result['outcome'] = -1
   return Response(json.dumps(json_result), mimetype='application/json')
@@ -140,10 +142,11 @@ def update_rating():
   json_result = {}
   if username:
     json_result['outcome'] = 1
-    theatre = request.form['theatre']
+    #theatre = request.form['theatre']
+    place_id = request.form['place_id']
     user_rating = request.form['user_rating']
     username = request.cookies.get('username')
-    users.update_rating(theatre,username,user_rating)
+    users.update_rating(place_id,username,user_rating)
   else:
       json_result['outcome'] = -1
   return Response(json.dumps(json_result), mimetype='application/json')
