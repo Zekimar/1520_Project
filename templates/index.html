@@ -78,6 +78,8 @@
         var my_map;
         var position;
         var markers = [];
+        var infowindow;
+        var marker_addresses = [];
         function myMap() {
             var map_cent = new google.maps.LatLng(40.440624, -79.995888);
 
@@ -128,8 +130,9 @@
                 title: place.name
             });
             markers.push(marker);
+            marker_addresses.push(place.formatted_address);
             //add infowindow for onClick
-            var infowindow = new google.maps.InfoWindow({
+            infowindow = new google.maps.InfoWindow({
                 content:"<p>" + place.name + "<br>" + place.formatted_address + "<br>"// + '<input type="text" id="updatePrice">'
                 //+ '<button onclick="update_price_map(document.getElementById("updatePrice").value, place.name)">update price</button>' + '<br>' 
                 //+ '<input type="text">' + '<button onclick="update_rating_map()">update rating</button>'
@@ -138,6 +141,10 @@
             marker.addListener('click', function() {
                 //my_map.setZoom(100);
                 my_map.setCenter(marker.getPosition());
+                infowindow.close();
+                infowindow = new google.maps.InfoWindow({
+                    content:"<p>" + marker.title + "<br>" + place.formatted_address+ "<br>"
+                });
                 infowindow.open(my_map, marker);
                 //document.getElementById("selected_theater").innerHTML = place.name;
                 lookup_theatre_map(place);
@@ -152,14 +159,18 @@
             console.log(markers[i].title);
             if (markers[i].title === actual_name[0]){
                 my_map.setCenter(markers[i].getPosition());
-                infowindow.open(my_map, marker);
+                infowindow.close();
+                infowindow = new google.maps.InfoWindow({
+                content:"<p>" + markers[i].title + "<br>" + marker_addresses[i]+ "<br>"
+            });
+                infowindow.open(my_map, markers[i]);
                 //my_map.setZoom(16);
             }
         }
     }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU5KAyTuvKuS95KySyAzeCPsBY_pj2lGw&libraries=places&callback=myMap"></script>
-    <script src='/static/js/load_theatres.js'></script>
-    <script src='/static/js/display.js'></script>
+    <script src='/static/js/load_theatres48.js'></script>
+    <script src='/static/js/display48.js'></script>
 </main>
 {% endblock %}
