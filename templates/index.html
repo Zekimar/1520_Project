@@ -146,6 +146,7 @@
     function center_on(name){
         console.log("center on: "+name);
         var actual_name = name.split(",");
+        console.log(actual_name);
         for (x in markers){
             if (x.title === actual_name[0]){
                 my_map.setCenter(x.getPosition());
@@ -155,8 +156,7 @@
     }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU5KAyTuvKuS95KySyAzeCPsBY_pj2lGw&libraries=places&callback=myMap"></script>
-    <script src='/static/js/buttons1.js'></script>
-    <script src='/static/js/best_theatres1.js'></script>
+    <script src='/static/js/load_theatres.js'></script>
     <script src='/static/js/display.js'></script>
 </main>
 {% endblock %}

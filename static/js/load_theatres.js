@@ -18,12 +18,12 @@ function load_theatres_callback(resp)
 	var theatre_name = resp.highest_rating.theatre_name;
 	var rating = resp.highest_rating.rating;
 	var location = document.getElementById("highest_rated_theatre_location");
-	location.innerHTML = "Highest Rated Theatre: "+theatre_name+", "+rating+" stars";
+	location.innerHTML = theatre_name+", "+rating+" stars";
 
 	var theatre_name = resp.lowest_price.theatre_name;
 	var price = resp.lowest_price.price;
 	var location = document.getElementById("lowest_price_theatre_location");
-	location.innerHTML = "Lowest Price Theatre: "+theatre_name+", "+price+" dollars";
+	location.innerHTML = theatre_name+", "+price+" dollars";
 
 
 }
