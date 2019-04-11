@@ -147,9 +147,11 @@
         console.log("center on: "+name);
         var actual_name = name.split(",");
         console.log(actual_name);
-        for (x in markers){
-            if (x.title === actual_name[0]){
-                my_map.setCenter(x.getPosition());
+        for (var i; i < markers.length; i++)
+        {
+            console.log(markers[i].title);
+            if (markers[i].title === actual_name[0]){
+                my_map.setCenter(markers[i].getPosition());
                 my_map.setZoom(16);
             }
         }
