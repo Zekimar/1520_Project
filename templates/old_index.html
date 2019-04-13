@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<main class="hero-section">
+    <div class="container">
+
+        <!-- Prateek's work part A-->
+        <div id="login_information" display="none">LOGIN INFORMATION</div>
+        <button id='logout_button' onclick='logout()'>Log out</button>
+        <div style="display:none" id="place_id_location"></div>
+        <!-- Prateek's work part A-->
+        
+
+
+
+
+         <!-- Prateek's work part B-->
+        <div class="section-content">
+            <div id="highest_rated_title">Highest Rated Theatre:</div>
+            <div id="highest_rated_theatre_location" onclick="center_on(document.getElementById('highest_rated_theatre_location').innerHTML)"></div>
+            <!--<button onclick="center_on(document.getElementById('highest_rated_theatre_location').innerHTML)">Find</button>-->
+            <br>
+            <div id="lowest_price_title">Lowest Price Theatre:</div>
+            <div id="lowest_price_theatre_location" onclick="center_on(document.getElementById('lowest_price_theatre_location').innerHTML)"></div>
+            <!--<button onclick="center_on(document.getElementById('lowest_price_theatre_location').innerHTML)">Find</button>-->
+            <br>
+            <br>
+            <div><h3><strong>Selected Theatre Information: </strong></h3></div>
+            <br>
+            <div class="mustafa_box_display" style=" background-color: whitesmoke; width: 400px; height: 250px; border: 5px groove; padding: 5px; margin: 0px"  display="none" id="theatre_info">
+              <div style="visibility:hidden" id="theatre_name_location">none</div>
+              <br>
+              <div style="visibility:hidden" id="average_price_location">none</div>
+              <br>
+              <div style="visibility:hidden" id="average_rating_location">none</div>
+              <br>
+              <div style="visibility:hidden" id="user_price_location">none</div>
+              <br>
+              <div style="visibility:hidden" id="user_rating_location">none</div>
+              <br><br><br>
+              <input type="text" id="update_price_entry">
+              <button class="mustafa_button" style="vertical-align:middle" id="theatre_lookup_button" onclick="update_price()"><span>update price</span></button>
+              <br>
+              <input type="text" id="update_rating_entry">
+              <button class="mustafa_button" style="vertical-align:middle" id="theatre_lookup_button" onclick="update_rating()"><span>update rating</span></button>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            </div>
+           
+        </div>
+            <br>
+            <br>
+            <br>
+       <!-- Mustafa's styling work -->
+
+  
+        <div class="section-device">
+            <div id="googleMap" style="width:600px;height:400px;"></div>
+        </div>
+
+
+
+
+        <div class="clearfix">
+        </div>
+
+
+            <br>
+            <br>
+            <br>
+            <div id="message_display"></div>
+            <div>Username</div>
+            <input type="text" id="username_entry">
+            <br>
+            <div>Password</div>
+            <input type="text" id="password_entry">
+            <br>
+            <br>
+            <button onclick="add_user();" class='btn-primary'>Sign up</button>
+            <button onclick="login();" class="btn-secondary">Login</button>
+
+            <br>
+            <br>
+    </div>
+
+    <script>
+        var lat;
+        var long;
+        var my_map;
+        var position;
+        var markers = [];
+        var infowindow;
+        var marker_addresses = [];
+        var my_places = [];
+        function myMap() {
+            var map_cent = new google.maps.LatLng(40.440624, -79.995888);
+
+            my_map = new google.maps.Map(document.getElementById("googleMap"), {
+                center: map_cent,
+                zoom: 11
+            });
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    my_map.setZoom(11);
+                    my_map.setCenter(pos);
+                });
+            }
+            var request = {
+                location: map_cent,
+                radius: "1500",
+                type: "movie_theater"
+            };
+            service = new google.maps.places.PlacesService(my_map);
+            service.textSearch(request, callback);
+        }
+
+
+        function callback(results, status) 
+        {
+            var output = []
+            console.log(status);
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    var place = results[i];
+                    createMarker(place);
+                    //console.log(place.name);
+                    output.push(place.name);
+                }
+            }
+            load_theatres(output);
+        }
+
+        function createMarker(place) {
+            //put markers on the map
+            var marker = new google.maps.Marker({
+                map: my_map,
+                position: place.geometry.location,
+                title: place.name
+            });
+            markers.push(marker);
+            marker_addresses.push(place.formatted_address);
+            my_places.push(place);
+            //add infowindow for onClick
+            infowindow = new google.maps.InfoWindow({
+                content:"<p>" + place.name + "<br>" + place.formatted_address + "<br>"// + '<input type="text" id="updatePrice">'
+                //+ '<button onclick="update_price_map(document.getElementById("updatePrice").value, place.name)">update price</button>' + '<br>' 
+                //+ '<input type="text">' + '<button onclick="update_rating_map()">update rating</button>'
+            });
+            //add onClick listener
+            marker.addListener('click', function() {
+                //my_map.setZoom(100);
+                my_map.setCenter(marker.getPosition());
+                infowindow.close();
+                infowindow = new google.maps.InfoWindow({
+                    content:"<p>" + marker.title + "<br>" + place.formatted_address+ "<br>"
+                });
+                infowindow.open(my_map, marker);
+                //document.getElementById("selected_theater").innerHTML = place.name;
+                lookup_theatre_map(place);
+            });
+      }
+    function center_on(name){
+        console.log("center on: "+name);
+        var actual_name = name.split(",");
+        console.log(actual_name);
+        for (var i = 0; i < markers.length; i++)
+        {
+            console.log(markers[i].title);
+            if (markers[i].title === actual_name[0]){
+                my_map.setCenter(markers[i].getPosition());
+                infowindow.close();
+                infowindow = new google.maps.InfoWindow({
+                content:"<p>" + markers[i].title + "<br>" + marker_addresses[i]+ "<br>"
+            });
+                infowindow.open(my_map, markers[i]);
+                lookup_theatre_map(my_places[i]);
+                //my_map.setZoom(16);
+            }
+        }
+    }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU5KAyTuvKuS95KySyAzeCPsBY_pj2lGw&libraries=places&callback=myMap"></script>
+    <script src='/static/js/load_theatres61.js'></script>
+    <script src='/static/js/display61.js'></script>
+</main>
+{% endblock %}

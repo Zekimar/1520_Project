@@ -117,6 +117,8 @@ function logout_helper(response)
 	login_display.innerHTML = "User: "+old_username+" logged out";
     var logout_button = document.getElementById("logout_button");
     logout_button.style.display = 'none';
+    document.getElementById('user_price_location').style.visibility = 'hidden';
+    document.getElementById('user_rating_location').style.visibility = 'hidden';
 }
 
 /*
