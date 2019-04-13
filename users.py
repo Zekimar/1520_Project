@@ -100,7 +100,7 @@ def update_rating(place_id,username,user_rating):
   
   if flag == 1:
     theatre_info.remove(removed_thing)
-    print('updating price to '+user_rating)
+    print('updating rating to '+user_rating)
     new_entry = {
       'username':removed_thing['username'],
       'price':removed_thing['price'],
@@ -162,7 +162,7 @@ def get_averages(theatre_info):
       price_counter = price_counter+1
     if theatre_info[i]['rating'] > 0:
       total_rating += theatre_info[i]['rating']
-      rating_counter += rating_counter+1
+      rating_counter = rating_counter+1
 
     if price_counter > 0:
       output_price = "{0:.2f}".format((total_price/price_counter))

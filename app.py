@@ -145,7 +145,8 @@ def update_rating():
     #theatre = request.form['theatre']
     place_id = request.form['place_id']
     user_rating = request.form['user_rating']
-    username = request.cookies.get('username')
+    print('username cookie =' + username)
+    #username = request.cookies.get('username')
     users.update_rating(place_id,username,user_rating)
   else:
       json_result['outcome'] = -1
