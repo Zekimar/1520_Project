@@ -12,7 +12,7 @@ from google.cloud.datastore.key import Key
 ENTITY_TYPE_USER = 'USER'
 ENTITY_TYPE_THEATRE = 'THEATRE'
 
-PROJECT_ID = 'potent-smithy-230123'
+PROJECT_ID = 'theatrefinder-237619'
 
 
 
@@ -183,7 +183,7 @@ def get_averages_raw(theatre_info):
       price_counter = price_counter+1
     if theatre_info[i]['rating'] > 0:
       total_rating += theatre_info[i]['rating']
-      rating_counter += rating_counter+1
+      rating_counter = rating_counter+1
 
   if price_counter > 0:
     output_price = (total_price/price_counter)
